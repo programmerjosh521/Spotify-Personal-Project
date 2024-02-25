@@ -67,7 +67,7 @@ async function getAccessToken(clientId: string, code: string) {
     return access_token;
 }
 
-async function fetchProfile(token: string): Promise<any> {
+async function fetchProfile(token: string): Promise<UserProfile> {
     const result = await fetch("https://api.spotify.com/v1/me", {
         method: "GET", headers: { Authorization: `Bearer ${token}` }
     });
@@ -75,7 +75,7 @@ async function fetchProfile(token: string): Promise<any> {
     return await result.json();
 }
 
-function populateUI(profile: any) {
+function populateUI(profile: UserProfile) {
     document.getElementById("displayName")!.innerText = profile.display_name;
     if (profile.images[0]) {
         const profileImage = new Image(200, 200);
